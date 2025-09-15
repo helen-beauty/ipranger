@@ -6,3 +6,13 @@ edition = "2024"
 [dependencies]
 ping-rs = "0.1.1"
 tokio = { version = "1.0", features = ["full"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+overflow-checks = false
+debug-assertions = false
+incremental = false

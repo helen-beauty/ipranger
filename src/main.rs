@@ -55,7 +55,7 @@ async fn ping_range (start_ip_r: Ipv4Addr, end_ip_r: Ipv4Addr) -> Vec<IpAddr> {
     for handle in ping_handles {
         match handle.await {
             Ok((ip, is_up)) =>if is_up { hosts.push(ip) },
-            Err(e) => {}
+            Err(_e) => {}
         }
     }
     hosts
@@ -67,8 +67,8 @@ async fn ping_single(target: IpAddr) -> (IpAddr, bool) {
     let ping_data = Arc::new(&data[..]);
     let options = PingOptions {ttl: 64, dont_fragment: true};
     match send_ping_async(&target, timeout, ping_data.clone(), Some(&options) ).await {
-        Ok(duration) => (target, true),
-        Err(e) => (target, false),
+        Ok(_duration) => (target, true),
+        Err(_e) => (target, false),
     }
 }
 
